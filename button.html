@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        #text-block{
+            color: red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="text-block">Це текст, колір якого, буде змінюватися</div>
+<button id="myButton">Change the colour</button>
+
+<script>
+    let OrigColor = true;
+
+    function changeColor() {
+     const text = document.getElementById('text-block');
+     if(OrigColor) {
+        text.style.color = 'green';
+     } else{
+        text.style.color = 'red';
+     }
+     OrigColor = !OrigColor
+    }
+
+    function setUp(){
+        const button = document.getElementById('myButton');
+        button.addEventListener('click', changeColor);
+    }
+
+    document.addEventListener("DOMContentLoaded", setUp);
+</script>
+</body>
+</html>
