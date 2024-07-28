@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        #random-image {
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            position: absolute;
+            transform-origin: center center;
+        }
+    </style>
+</head>
+<body>
+
+    <div><img id = "random-image"></div>
+    <button id = "new image">Get new image</button>
+
+    <script>
+       const images = [
+            'images/1.jpg',
+            'images/2.jpg',
+            'images/3.jpg',
+            'images/4.jpg',
+            'images/5.jpg',
+            'images/6.jpg',
+            'images/7.jpg',
+            'images/8.jpg',
+            'images/9.jpg'
+        ];
+
+        function getRandomImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            return images[randomIndex];
+        }
+
+        function displayRandomImage() {
+            const randomImageSrc = getRandomImage();
+            const imageElement = document.getElementById('random-image');
+            imageElement.src = randomImageSrc;
+        }
+
+        document.getElementById('new image').addEventListener('click', displayRandomImage);
+   
+        function moveAndRotateElement(event) {
+            const imageElement = document.getElementById('random-image');
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            imageElement.style.left = mouseX + "px";
+            imageElement.style.top = mouseY + "px";
+
+            const rect = imageElement.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const deltaX = mouseX - centerX;
+            const deltaY = mouseY - centerY;
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+
+            imageElement.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+        }
+
+        let isMoving = false;
+
+        document.getElementById('random-image').addEventListener('click', function() {
+            isMoving = !isMoving;
+            if (isMoving) {
+                document.addEventListener('mousemove', moveAndRotateElement);
+            } else {
+                document.removeEventListener('mousemove', moveAndRotateElement);
+            }
+        });
+    </script>
+</body>
+</html>
